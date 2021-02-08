@@ -25,6 +25,25 @@ install_package() {
 	fi
 }
 
+install_aur_package() {
+	if yay -Qi $1 &>/dev/null; then
+		tput setaf 6
+		echo "###############################################################################"
+		echo "################## The package "$1" is already installed"
+		echo "###############################################################################"
+		echo
+		tput sgr0
+	else
+		tput setaf 10
+		echo "###############################################################################"
+		echo "##################  Installing package " $1
+		echo "###############################################################################"
+		echo
+		tput sgr0
+		sudo yay -S --noconfirm --needed $1
+	fi
+}
+
 print_package() {
 	if dpkg -s $1 &>/dev/null; then
 		tput setaf 2
@@ -74,23 +93,27 @@ core=(
 	arcolinux-lightdm-gtk-greeter
 	arcolinux-lightdm-gtk-greeter-settings
 	arcolinux-wallpapers-git
-	thunar
-	thunar-archive-plugin
-	thunar-volman
-	# xfce4-terminal
-	# arcolinux-xfce-git
-	# arcolinux-local-xfce4-git
 	qtile
 	sxhkd
 	dmenu
 	feh
 	python-psutil
 	xcb-util-cursor
+	awesome-terminal-fonts
+	# thunar
+	# thunar-archive-plugin
+	# thunar-volman
+	# xfce4-terminal
+	# arcolinux-xfce-git
+	# arcolinux-local-xfce4-git
 	# arcolinux-qtile-git
 	# arcolinux-qtile-dconf-git
 	# arcolinux-config-qtile-git
-	awesome-terminal-fonts
 	# arcolinux-logout-git
+)
+
+core_aur=(
+	sunflower
 )
 
 ###############################################################################
@@ -112,6 +135,9 @@ categories=(
 	'development'
 )
 
+aur_categories=(
+	"core_aur"
+)
 ###############################################################################
 
 declare -n category
@@ -127,4 +153,19 @@ for category in ${categories[@]}; do
 		core_configuration
 		;;
 	esac
+done
+
+declare -n aur_category
+for category in ${aur_categories[@]}; do
+	print_category ${!category}
+	for program in ${category[@]}; do
+		# install_package $program
+		print_package $program
+	done
+
+	# case ${!category} in
+	# "core")
+	# 	core_configuration
+	# 	;;
+	# esac
 done
