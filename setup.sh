@@ -27,14 +27,14 @@ install_package() {
 
 install_aur_package() {
 	if yay -Qi $1 &>/dev/null; then
-		tput setaf 6
+		tput setaf 49
 		echo "###############################################################################"
 		echo "################## The package "$1" is already installed"
 		echo "###############################################################################"
 		echo
 		tput sgr0
 	else
-		tput setaf 10
+		tput setaf 94
 		echo "###############################################################################"
 		echo "##################  Installing package " $1
 		echo "###############################################################################"
@@ -79,7 +79,18 @@ core_configuration() {
 	echo
 	tput sgr0
 	echo "config"
-	# sudo systemctl enable lightdm.service -f
+	sudo systemctl enable lightdm.service -f
+}
+
+copy_config_files() {
+	tput setaf 1
+	echo "################################################################"
+	echo "##################  Copying config files"
+	echo "################################################################"
+	echo
+	tput sgr0
+	cp -r .config/* ~/.config
+	cp .Xresources ~
 }
 
 ###############################################################################
@@ -100,6 +111,7 @@ core=(
 	python-psutil
 	xcb-util-cursor
 	awesome-terminal-fonts
+	kitty
 	# thunar
 	# thunar-archive-plugin
 	# thunar-volman
@@ -145,7 +157,7 @@ for category in ${categories[@]}; do
 	print_category ${!category}
 	for program in ${category[@]}; do
 		# install_package $program
-		print_package $program
+		install_package $program
 	done
 
 	case ${!category} in
@@ -156,11 +168,11 @@ for category in ${categories[@]}; do
 done
 
 declare -n aur_category
-for category in ${aur_categories[@]}; do
-	print_category ${!category}
-	for program in ${category[@]}; do
+for aur_category in ${aur_categories[@]}; do
+	print_category ${!aur_category}
+	for program in ${aur_category[@]}; do
 		# install_package $program
-		print_package $program
+		install_aur_package $program
 	done
 
 	# case ${!category} in
@@ -169,3 +181,5 @@ for category in ${aur_categories[@]}; do
 	# 	;;
 	# esac
 done
+
+copy_config_files
