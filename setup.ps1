@@ -14,3 +14,5 @@ Start-BitsTransfer -Source "https://dl5.oo-software.com/files/ooshutup10/OOSU10.
 ./system-config.ps1
 
 ./packages.ps1
+
+./fonts.ps1

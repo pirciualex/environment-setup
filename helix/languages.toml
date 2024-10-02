@@ -1,0 +1,61 @@
+[[language]]
+name = "html"
+language-servers = [ "vscode-html-language-server", "tailwindcss-ls" ]
+formatter = { command = "prettier" , args = ["--parser", "html"] }
+
+[[language]]
+name = "css"
+language-servers = [ "vscode-css-language-server", "tailwindcss-ls" ]
+formatter = { command = "prettier" , args = ["--parser", "css"] }
+
+[[language]]
+name = "less"
+scope = "source.less"
+injection-regex = "less"
+file-types = ["less"]
+language-servers = [ "vscode-css-language-server" ]
+auto-format = true
+formatter = { command = "prettier" , args = ["--parser", "less"] }
+indent = { tab-width = 2, unit = "  " }
+roots = []
+
+[[grammar]]
+name = "less"
+source = { git = "https://github.com/serenadeai/tree-sitter-scss", rev = "2bd739e106a3485bca210cf7b6d25ba09fd10dff" }
+
+[[language]]
+name = "svelte"
+language-servers = [ "svelteserver", "tailwindcss-ls" ]
+auto-format = true
+
+[[language]]
+name = "javascript"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+
+[[language]]
+name = "typescript"
+auto-format = true
+formatter = { command = "prettier", args = ["--parser", "typescript"] }
+
+[[languages]]
+name = "go"
+auto-format = true
+formatter = { command = "goimports" }
+
+[[language]]
+name = "python"
+language-servers = [ "pyright", "ruff" ]
+
+[language-server.pyright.config.python.analysis]
+typeCheckingMode = "basic"
+
+[language-server.ruff]
+command = "ruff-lsp"
+
+[language-server.ruff.config.settings]
+args = ["--ignore", "E501"]
+
+[language.formatter]
+command = "black"
+args = ["--line-length", "88", "--quiet", "-"]
