@@ -23,7 +23,7 @@ If (!(Test-Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds")) {
 }
 Set-ItemProperty -Path "HKCU:\SOFTWARE\Policies\Microsoft\Windows\Windows Feeds" -Name "EnableFeeds" -Type DWord -Value 0
 # Remove "News and Interest" from taskbar
-Set-ItemProperty -Path  "HKCU:\Software\Microsoft\Windows\CurrentVersion\Feeds" -Name "ShellFeedsTaskbarViewMode" -Type DWord -Value 2
+Set-ItemProperty -Path  "HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced" -Name "TaskbarDa" -Type DWord -Value 0
 # Remove "Meet Now" button from taskbar
 If (!(Test-Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer")) {
     New-Item -Path "HKCU:\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer" -Force | Out-Null
@@ -47,7 +47,7 @@ Set-Service "DiagTrack" -StartupType Disabled
 $services = @(
 "AJRouter"                                      # AllJoyn Router Service
 "ALG"                                           # Application Layer Gateway Service (Provides support for 3rd party protocol plug-ins for Internet Connection Sharing)
-"AppIDSvc"                                      # Application Identity Service (determines and verifies the identity of an app; stopping this service will prevent AppLocker policies from being enforced)
+# "AppIDSvc"                                      # Application Identity Service (determines and verifies the identity of an app; stopping this service will prevent AppLocker policies from being enforced)
 "BcastDVRUserService_48486de"                   # GameDVR and Broadcast is used for Game Recordings and Live Broadcasts
 #"BDESVC"                                       # Bitlocker
 #"BFE"                                          # Base Filtering Engine (BFE) (is a service that manages firewall and Internet Protocol security)
@@ -274,7 +274,8 @@ $Bloatware = @(
     "Microsoft.Xbox.TCUI"
     "Microsoft.XboxApp"
     "Microsoft.XboxGameOverlay"
-    "Microsoft.XboxGameCallableUI"
+    "Microsoft.XboxGamingOverlay"
+    # "Microsoft.XboxGameCallableUI"
     "Microsoft.XboxIdentityProvider"
     "Microsoft.XboxSpeechToTextOverlay"
     "Microsoft.YourPhone"

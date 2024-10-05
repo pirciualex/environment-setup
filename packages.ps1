@@ -38,7 +38,7 @@ $Packages = @(
     "etcher"
     "fd"
     "firefox"
-    # "geforce-experience"
+    "geforce-experience"
     "gimp"
     "git"
     "go"
@@ -82,22 +82,23 @@ foreach ($Package in $Packages) {
 
 
 Write-Host "Installing zoho mail..."
-Invoke-WebRequest -Uri "https://downloads.zohocdn.com/zmail-desktop/windows/zoho-mail-desktop-lite-installer-x64-v1.6.0.exe" -OutFile ".\zoho-mail-desktop-lite-installer.exe"
+Invoke-WebRequest -Uri "https://downloads.zohocdn.com/zmail-desktop/windows/zoho-mail-desktop-lite-installer-x64-v1.6.4.exe" -OutFile ".\zoho-mail-desktop-lite-installer.exe"
 .\zoho-mail-desktop-lite-installer.exe
 
 
 Write-Host "Adding PATH environment variables..."
 Add-PathVariable("$env:ProgramFiles\Mozilla Firefox")
+Add-PathVariable("$env:ProgramFiles\Git\bin")
+Add-PathVariable("$env:ProgramFiles\Microsoft VS Code\bin")
+Add-PathVariable("$env:ProgramFiles\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Azure Storage Emulator")
 $env:ChocolateyInstall = Convert-Path "$((Get-Command choco).Path)\..\.."   
 Import-Module "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
 refreshenv
 
-Write-Host "Setting git config..."
-git config --global user.name "Alex Pirciu"
-git config --global user.email "alex.pirciu@zohomail.eu"
+Write-Host "Copying config files..."
+Copy-Item -Force -Path ".\.gitconfig" -Destination "$env:USERPROFILE"
 Copy-Item -Force -Path ".\.bash_profile" -Destination "$env:USERPROFILE"
 Copy-Item -Force -Path ".\.bashrc" -Destination "$env:USERPROFILE"
-Write-Host "Copying config files..."
 $helixDirectory = "$env:APPDATA\helix"
 if (!(Test-Path -path $helixDirectory)) {
     New-Item $helixDirectory -Type Directory

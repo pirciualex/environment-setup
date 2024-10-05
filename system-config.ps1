@@ -88,13 +88,6 @@ Write-Host "Enabling F8 boot menu options..."
 bcdedit /set `{current`} bootmenupolicy Legacy | Out-Null
 
 
-Write-Host "Stopping and disabling Home Groups services..."
-Stop-Service "HomeGroupListener" -WarningAction SilentlyContinue
-Set-Service "HomeGroupListener" -StartupType Manual
-Stop-Service "HomeGroupProvider" -WarningAction SilentlyContinue
-Set-Service "HomeGroupProvider" -StartupType Manual
-
-
 Write-Host "Disabling Storage Sense..."
 Remove-Item -Path "HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\StorageSense\Parameters\StoragePolicy" -Recurse -ErrorAction SilentlyContinue
 Write-Host "Stopping and disabling Superfetch service..."

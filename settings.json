@@ -130,6 +130,7 @@
             "keys": "ctrl+down"
         }
     ],
+    "confirmCloseAllTabs": false,
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{9d02905b-42a3-4eb1-a3aa-e8a2b7988cd9}",
@@ -171,7 +172,7 @@
                 "source": "Windows.Terminal.Azure"
             },
             {
-                "commandline": "\"%PROGRAMFILES%\\git\\usr\\bin\\bash.exe\" -i -l",
+                "commandline": "%PROGRAMFILES%\\git\\bin\\bash.exe",
                 "guid": "{9d02905b-42a3-4eb1-a3aa-e8a2b7988cd9}",
                 "hidden": false,
                 "icon": "%PROGRAMFILES%\\git\\mingw64\\share\\git\\git-for-windows.ico",
